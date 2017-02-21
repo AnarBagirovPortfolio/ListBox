@@ -1,0 +1,174 @@
+﻿<Page x:Name="pageRoot"
+    x:Class="ListBox.ItemPage"    
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:ListBox"
+    xmlns:data="using:ListBox.Data"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    DataContext="{Binding DefaultViewModel.Item, RelativeSource={RelativeSource Self}}"
+    d:DataContext="{Binding Groups[0].Items[0], Source={d:DesignData Source=/DataModel/SampleData.json, Type=data:SampleDataSource}}"
+    Background="{ThemeResource AppBackgroundColor}">
+    <Page.Resources>
+        <Style x:Key="TextBoxStyle2" TargetType="TextBox">
+            <Setter Property="MinWidth" Value="{ThemeResource TextControlThemeMinWidth}"/>
+            <Setter Property="MinHeight" Value="{ThemeResource TextControlThemeMinHeight}"/>
+            <Setter Property="Foreground" Value="{ThemeResource TextBlockForegroundColor}"/>
+            <Setter Property="SelectionHighlightColor" Value="{ThemeResource TextSelectionHighlightColorThemeBrush}"/>
+            <Setter Property="Background" Value="{ThemeResource TextBoxBackgroundThemeBrush}"/>
+            <Setter Property="BorderBrush" Value="{ThemeResource TextBoxBorderThemeBrush}"/>
+            <Setter Property="BorderThickness" Value="{ThemeResource TextControlBorderThemeThickness}"/>
+            <Setter Property="FontFamily" Value="{ThemeResource PhoneFontFamilyNormal}"/>
+            <Setter Property="FontSize" Value="{ThemeResource ContentControlFontSize}"/>
+            <Setter Property="TextWrapping" Value="NoWrap"/>
+            <Setter Property="ScrollViewer.HorizontalScrollMode" Value="Auto"/>
+            <Setter Property="ScrollViewer.VerticalScrollMode" Value="Auto"/>
+            <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Hidden"/>
+            <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Hidden"/>
+            <Setter Property="ScrollViewer.IsDeferredScrollingEnabled" Value="False"/>
+            <Setter Property="Padding" Value="{ThemeResource TextControlThemePadding}"/>
+            <Setter Property="Margin" Value="{ThemeResource TextControlMarginThemeThickness}"/>
+            <Setter Property="VerticalAlignment" Value="Top"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="TextBox">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+                            <VisualStateManager.VisualStateGroups>
+                                <VisualStateGroup x:Name="CommonStates">
+                                    <VisualState x:Name="Disabled">
+                                        <Storyboard>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Foreground" Storyboard.TargetName="ContentElement">
+                                                <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource TextBlockForegroundColor}"/>
+                                            </ObjectAnimationUsingKeyFrames>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Foreground" Storyboard.TargetName="PlaceholderTextContentPresenter">
+                                                <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource TextBlockForegroundColor}"/>
+                                            </ObjectAnimationUsingKeyFrames>
+                                        </Storyboard>
+                                    </VisualState>
+                                    <VisualState x:Name="Normal">
+                                        <Storyboard>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(Border.BorderThickness)" Storyboard.TargetName="BorderElement">
+                                                <DiscreteObjectKeyFrame KeyTime="0">
+                                                    <DiscreteObjectKeyFrame.Value>
+                                                        <Thickness>0</Thickness>
+                                                    </DiscreteObjectKeyFrame.Value>
+                                                </DiscreteObjectKeyFrame>
+                                            </ObjectAnimationUsingKeyFrames>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(Control.Foreground)" Storyboard.TargetName="PlaceholderTextContentPresenter">
+                                                <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource TextBlockForegroundColor}"/>
+                                            </ObjectAnimationUsingKeyFrames>
+                                            <DoubleAnimation Duration="0" To="0.6" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="PlaceholderTextContentPresenter" d:IsOptimized="True"/>
+                                        </Storyboard>
+                                    </VisualState>
+                                    <VisualState x:Name="Focused">
+                                        <Storyboard>
+                                            <DoubleAnimation Duration="0" To="0" Storyboard.TargetProperty="Opacity" Storyboard.TargetName="PlaceholderTextContentPresenter"/>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(Border.BorderThickness)" Storyboard.TargetName="BorderElement">
+                                                <DiscreteObjectKeyFrame KeyTime="0">
+                                                    <DiscreteObjectKeyFrame.Value>
+                                                        <Thickness>0</Thickness>
+                                                    </DiscreteObjectKeyFrame.Value>
+                                                </DiscreteObjectKeyFrame>
+                                            </ObjectAnimationUsingKeyFrames>
+                                        </Storyboard>
+                                    </VisualState>
+                                </VisualStateGroup>
+                            </VisualStateManager.VisualStateGroups>
+                            <Border x:Name="BackgroundElement" Margin="{TemplateBinding BorderThickness}" Grid.Row="1" Background="Transparent" BorderThickness="0,0,0,1" 
+                                    BorderBrush="{ThemeResource CheckBoxBGColor}"/>
+                            <Border x:Name="BorderElement" Grid.Row="1" BorderThickness="0,0,0,1" BorderBrush="{ThemeResource CheckBoxBGColor}"/>
+                            <ContentPresenter x:Name="HeaderContentPresenter" ContentTemplate="{TemplateBinding HeaderTemplate}" Content="{TemplateBinding Header}" 
+                                              Margin="{ThemeResource TextControlHeaderMarginThemeThickness}" Grid.Row="0" Style="{StaticResource HeaderContentPresenterStyle}"/>
+                            <ScrollViewer x:Name="ContentElement" AutomationProperties.AccessibilityView="Raw" HorizontalScrollMode="{TemplateBinding ScrollViewer.HorizontalScrollMode}" 
+                                          HorizontalScrollBarVisibility="{TemplateBinding ScrollViewer.HorizontalScrollBarVisibility}" IsTabStop="False" 
+                                          IsHorizontalRailEnabled="{TemplateBinding ScrollViewer.IsHorizontalRailEnabled}" IsVerticalRailEnabled="{TemplateBinding ScrollViewer.IsVerticalRailEnabled}" 
+                                          IsDeferredScrollingEnabled="{TemplateBinding ScrollViewer.IsDeferredScrollingEnabled}" MinHeight="{ThemeResource TextControlThemeMinHeight}" Grid.Row="1" 
+                                          VerticalScrollBarVisibility="{TemplateBinding ScrollViewer.VerticalScrollBarVisibility}" VerticalScrollMode="{TemplateBinding ScrollViewer.VerticalScrollMode}" 
+                                          ZoomMode="Disabled" VerticalAlignment="Center" FontSize="24" Foreground="{ThemeResource TextBlockForegroundColor}" Margin="12"/>
+                            <ContentControl x:Name="PlaceholderTextContentPresenter" Content="{TemplateBinding PlaceholderText}" Foreground="{ThemeResource TextBoxPlaceholderTextThemeBrush}" 
+                                            FontSize="24" IsTabStop="False" Grid.Row="1" VerticalAlignment="Center" VerticalContentAlignment="Center" Margin="12"/>
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Page.Resources>
+    <Page.Transitions>
+        <TransitionCollection>
+            <NavigationThemeTransition>
+                <NavigationThemeTransition.DefaultNavigationTransitionInfo>
+                    <ContinuumNavigationTransitionInfo/>
+                </NavigationThemeTransition.DefaultNavigationTransitionInfo>
+            </NavigationThemeTransition>
+        </TransitionCollection>
+    </Page.Transitions>
+
+    <Grid x:Name="LayoutRoot">
+        
+        <Grid VerticalAlignment="Top">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*"/>
+            </Grid.ColumnDefinitions>
+
+            <Border Grid.Column="0" Height="65" Background="{ThemeResource AppMainColor}" VerticalAlignment="Top" BorderThickness="0,0,0,1" BorderBrush="{ThemeResource TextBoxBorderBrush}"/>
+            <TextBlock Text="{Binding Title}" Foreground="{ThemeResource TitleForegroundColor}" FontSize="26"
+                       HorizontalAlignment="Center" VerticalAlignment="Center" TextWrapping="NoWrap" Margin="19,0,19,0" Style="{ThemeResource HeaderTextBlockStyle}" TextLineBounds="Tight"/>
+
+        </Grid>
+
+        <ScrollViewer Margin="19,64,19,0" ScrollViewer.VerticalScrollBarVisibility="Hidden">
+
+            <Grid Margin="0,8,0,0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="1*"/>
+                </Grid.ColumnDefinitions>
+
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="8"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="8"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+
+                <Border Background="Transparent" BorderBrush="{ThemeResource CheckBoxBGColor}" BorderThickness="0,0,0,1" Grid.Column="0" Grid.Row="0"/>
+                <TextBlock x:Name="EditCount" x:Uid="EditCount" FontSize="24" Foreground="{ThemeResource ItemForegroundColor}" Grid.Column="0" Grid.Row="0" Margin="12,12,0,12" 
+                           FontWeight="SemiLight" Style="{ThemeResource MessageDialogContentStyle}" VerticalAlignment="Center" HorizontalAlignment="Left" TextLineBounds="Tight"/>
+                
+                <TextBox x:Name="ChangeCount" x:Uid="ChangeCount" Text="{Binding Count}" Foreground="Black" Margin="0,0,0,0" FontWeight="SemiLight" Style="{StaticResource TextBoxStyle2}" 
+                         InputScope="Number" BorderThickness="0" BorderBrush="#ededed" Grid.Column="1" Grid.Row="0" VerticalAlignment="Center"/>
+
+
+                <Border Background="Transparent" BorderBrush="{ThemeResource CheckBoxBGColor}" BorderThickness="0,0,0,1" Grid.Column="0" Grid.Row="2"/>
+                <TextBlock x:Name="EditPrice" x:Uid="EditPrice" FontSize="24" Foreground="{ThemeResource ItemForegroundColor}" Grid.Column="0" Grid.Row="2" Margin="12,12,0,12" 
+                           FontWeight="SemiLight" Style="{ThemeResource MessageDialogContentStyle}" VerticalAlignment="Center" HorizontalAlignment="Left" TextLineBounds="Tight"/>
+                
+                <TextBox x:Name="ChangePrice" x:Uid="ChangePrice" Text="{Binding Price}" Foreground="Black" Margin="0,0,0,0" FontWeight="SemiLight" Style="{StaticResource TextBoxStyle2}" 
+                         InputScope="Number" BorderThickness="0" BorderBrush="#ededed" Grid.Column="1" Grid.Row="2" VerticalAlignment="Center"/>
+                
+
+                <TextBox x:Name="ChangeDesc" x:Uid="ChangeDesc" Text="{Binding Description}" Foreground="Black" Margin="0,0,0,20" FontWeight="SemiLight" Style="{StaticResource TextBoxStyle2}" 
+                         BorderThickness="0" TextWrapping="Wrap" BorderBrush="#ededed" VerticalAlignment="Top" Grid.Row="4" Grid.ColumnSpan="2"/>
+            </Grid>
+
+        </ScrollViewer>        
+
+
+    </Grid>
+
+    <Page.BottomAppBar>
+        <CommandBar Background="{ThemeResource CommandBarBackgroundColor}" Foreground="{ThemeResource CommandBarForegroundColor}">
+            <AppBarButton x:Uid="ApplyChanges" x:Name="ApplyChanges" Icon="Accept" Click="ApplyChanges_Click"/>
+            <AppBarButton x:Uid="CancelChanges" x:Name="CancelChanges" Icon="Cancel" Click="CancelChanges_Click"/>
+            <CommandBar.SecondaryCommands>
+                <AppBarButton x:Uid="DeleteItem" x:Name="DeleteItem" Click="DeleteItem_Click"/>
+            </CommandBar.SecondaryCommands>
+        </CommandBar>
+    </Page.BottomAppBar>
+</Page>
